@@ -1,0 +1,9 @@
+<nav>
+  <ul>
+    {{#each collections.nav as |nav|}}
+      <li>
+        <a href="{{ url nav.url }}"{{#if (eq nav.url ../page.url)}} data-current="current item"{{/if}}>{{ nav.data.navtitle }}</a>
+      </li>
+    {{/each}}
+  </ul>
+</nav>
