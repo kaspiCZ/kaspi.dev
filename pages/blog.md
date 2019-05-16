@@ -1,5 +1,5 @@
 ---
-layout: layouts/blog.njk
+layout: layouts/blog.hbs
 title: Blog
 tags:
   - nav

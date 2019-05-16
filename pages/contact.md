@@ -1,5 +1,5 @@
 ---
-layout: layouts/contact.njk
+layout: layouts/contact.hbs
 title: Get in touch
 tags:
   - nav

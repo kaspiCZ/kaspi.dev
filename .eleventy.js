@@ -3,8 +3,24 @@ const CleanCSS = require("clean-css");
 const UglifyJS = require("uglify-es");
 const htmlmin = require("html-minifier");
 
+const hbsConcat = require("./src/handlebars/helpers/concat");
+const hbsGet = require("./src/handlebars/helpers/get");
+const hbsInlineFile = require("./src/handlebars/helpers/inline-file");
+const hbsReverse = require("./src/handlebars/helpers/reverse");
+const hbsTruthHelpers = require("./src/handlebars/helpers/truth-helpers");
+
+function addFilters(eleventyConfig) {
+  hbsConcat(eleventyConfig);
+  hbsGet(eleventyConfig);
+  hbsInlineFile(eleventyConfig, __dirname);
+  hbsReverse(eleventyConfig);
+  hbsTruthHelpers(eleventyConfig);
+}
+
 module.exports = function(eleventyConfig) {
-  eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
+  eleventyConfig.addLayoutAlias("post", "layouts/post.hbs");
+
+  addFilters(eleventyConfig);
 
   // Date formatting (human readable)
   eleventyConfig.addFilter("readableDate", dateObj => {
@@ -73,7 +89,7 @@ module.exports = function(eleventyConfig) {
   );
 
   return {
-    templateFormats: ["md", "njk", "html", "liquid"],
+    templateFormats: ["hbs", "md", "njk", "html", "liquid"],
 
     // If your site lives in a different subdirectory, change this.
     // Leading or trailing slashes are all normalized away, so don’t worry about it.
@@ -82,8 +98,8 @@ module.exports = function(eleventyConfig) {
     pathPrefix: "/",
 
     markdownTemplateEngine: "liquid",
-    htmlTemplateEngine: "njk",
-    dataTemplateEngine: "njk",
+    htmlTemplateEngine: "hbs",
+    dataTemplateEngine: "hbs",
     passthroughFileCopy: true,
     dir: {
       input: ".",

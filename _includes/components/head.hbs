@@ -1,0 +1,22 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {{#if title}}
+      {{ title }}
+    {{/if}}
+    {{#if renderData.title}}
+      {{ renderData.title }}
+    {{/if}}
+    {{#if metadata.title}}
+      {{ metadata.title }}
+    {{/if}}
+  </title>
+  <script async src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style type="text/css">
+    {{{ cssmin (inline-file "/_includes/assets/css/inline.css") }}}
+  </style>
+  <script>
+    {{{ jsmin (inline-file "/_includes/assets/js/inline.js") }}}
+  </script>
+</head>

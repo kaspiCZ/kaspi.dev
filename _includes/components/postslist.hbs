@@ -1,0 +1,34 @@
+<section>
+  {{#each postlist as |post|}}
+    <article{{#if (eq post.url ../url)}} data-current="current item"{{/if}}>
+      <h3>
+        <a href="{{ url post.url }}">
+          {{#if post.data.title}}
+            {{ post.data.title }}
+          {{else}}
+            Untitled
+          {{/if}}
+        </a>
+      </h3>
+      {{#if post.data.summary}}
+        <p>
+          {{ post.data.summary }}
+        </p>
+      {{/if}}
+      <p>
+        <time datetime="{{ machineDate post.date }}">
+          <small>{{ readableDate post.date }} by {{ ../metadata.author.name }}</small>
+        </time>
+      </p>
+      {{#if post.data.tags}}
+        <p>
+          {{#each post.data.tags as |tag|}}
+            {{#if (not-eq tag "post")}}
+              <a href="{{ url (concat "/tags/" tag "/")}}" rel="tag">{{ tag }}</a>
+            {{/if}}
+          {{/each}}
+        </p>
+      {{/if}}
+    </article>
+  {{/each}}
+</section>
