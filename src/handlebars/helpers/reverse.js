@@ -1,5 +1,5 @@
-module.exports = function(eleventyConfig) {
-  eleventyConfig.addHandlebarsHelper('reverse', function(collection) {
+module.exports = eleventyConfig => {
+  eleventyConfig.addHandlebarsHelper('reverse', collection => {
     return collection.reverse();
   });
 };

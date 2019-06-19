@@ -1,9 +1,9 @@
 {
-  "title": "Eleventy Netlify Boilerplate",
-  "url": "https://eleventy-netlify-boilerplate.netlify.com",
+  "title": "kaspi",
+  "url": "https://kaspi.io",
   "author": {
-    "name": "Dan Urbanowicz",
-    "email": "dan.urbanowicz@gmail.com",
-    "github": "https://github.com/danurbanowicz"
+    "name": "Ondřej Kašpar",
+    "email": "blog@kaspi.io",
+    "github": "https://github.com/kaspiCZ"
   }
 }

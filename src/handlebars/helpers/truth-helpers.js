@@ -1,32 +1,32 @@
 const helpers = {
-  eq: function(a, b) {
+  eq(a, b) {
     return a === b;
   },
   'not-eq': function(a, b) {
     return a !== b;
   },
-  lt: function(a, b) {
+  lt(a, b) {
     return a < b;
   },
-  lte: function(a, b) {
+  lte(a, b) {
     return a <= b;
   },
-  gt: function(a, b) {
+  gt(a, b) {
     return a > b;
   },
-  gte: function(a, b) {
+  gte(a, b) {
     return a >= b;
   },
-  and: function() {
-    return Array.prototype.slice.call(arguments, 0, -1).every(Boolean);
+  and(...args) {
+    return Array.prototype.slice.call(args, 0, -1).every(Boolean);
   },
-  or: function() {
-    return Array.prototype.slice.call(arguments, 0, -1).some(Boolean);
-  }
+  or(...args) {
+    return Array.prototype.slice.call(args, 0, -1).some(Boolean);
+  },
 };
 
-module.exports = function(eleventyConfig) {
-  for (let helper in helpers) {
-    eleventyConfig.addHandlebarsHelper(helper, helpers[helper]);
-  }
+module.exports = eleventyConfig => {
+  Object.keys(helpers).forEach(helper =>
+    eleventyConfig.addHandlebarsHelper(helper, helpers[helper]),
+  );
 };

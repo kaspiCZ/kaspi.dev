@@ -1,5 +1,5 @@
-module.exports = function(eleventyConfig) {
-  eleventyConfig.addHandlebarsHelper('get', function(from, object) {
+module.exports = eleventyConfig => {
+  eleventyConfig.addHandlebarsHelper('get', (from, object) => {
     return object[from];
   });
 };
