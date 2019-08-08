@@ -56,7 +56,12 @@
     "mdn-polyfills": "^5.16.3",
     "normalize.css": "^8.0.1",
     "prettier": "^1.18.2",
-    "prism-themes": "^1.1.0"
+    "prism-themes": "^1.1.0",
+    "stylelint": "^10.1.0",
+    "stylelint-config-prettier": "^5.2.0",
+    "stylelint-config-recommended-scss": "^3.3.0",
+    "stylelint-prettier": "^1.1.1",
+    "stylelint-scss": "^3.9.3"
   },
   "dependencies": {
     "@11ty/eleventy-plugin-syntaxhighlight": "^2.0.3",

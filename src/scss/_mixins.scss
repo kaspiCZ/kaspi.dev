@@ -1,0 +1,57 @@
+@mixin link-colors(
+  $default,
+  $hover: null,
+  $active: null,
+  $visited: null,
+  $focus: null
+) {
+  @if $hover == null {
+    $hover: $default;
+  }
+  @if $active == null {
+    $active: $default;
+  }
+  @if $visited == null {
+    $visited: $default;
+  }
+  @if $focus == null {
+    $focus: $default;
+  }
+
+  & {
+    color: $default;
+
+    &:visited {
+      color: $visited;
+    }
+    &:hover {
+      color: $hover;
+    }
+    &:active {
+      color: $active;
+    }
+    &:focus {
+      color: $focus;
+    }
+  }
+}
+
+@mixin link-no-decoration() {
+  & {
+    text-decoration: none;
+
+    &:visited,
+    &:hover,
+    &:active,
+    &:focus {
+      text-decoration: none;
+    }
+  }
+}
+
+@mixin list-style-none() {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  list-style-position: inside;
+}

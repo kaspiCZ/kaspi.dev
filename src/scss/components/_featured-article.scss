@@ -1,0 +1,25 @@
+.featured-article {
+  padding: var(--spacing-comfortable);
+  color: var(--color-text);
+
+  &:hover {
+    color: var(--color-text-inverted);
+    background-color: var(--bg-inverted);
+
+    a {
+      @include link-colors(var(--color-emphasized-inverted));
+    }
+  }
+
+  h3 {
+    margin-top: 0;
+
+    a {
+      @include link-colors(var(--color-emphasized));
+    }
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
