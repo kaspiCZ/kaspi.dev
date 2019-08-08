@@ -1,28 +1,46 @@
 const htmlmin = require('html-minifier');
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
+const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
+const hbsAbsoluteUrl = require('./src/handlebars/helpers/absolute-url');
 const hbsConcat = require('./src/handlebars/helpers/concat');
+const hbsFirstObject = require('./src/handlebars/helpers/first-object');
 const hbsGet = require('./src/handlebars/helpers/get');
+const hbsHtmlAbsoluteUrls = require('./src/handlebars/helpers/html-to-absolute-urls');
 const hbsInlineFile = require('./src/handlebars/helpers/inline-file');
 const hbsReverse = require('./src/handlebars/helpers/reverse');
 const hbsTruthHelpers = require('./src/handlebars/helpers/truth-helpers');
 
+const formatDate = require('./src/filters/format-date');
 const machineDate = require('./src/filters/machine-date');
 const readableDate = require('./src/filters/readable-date');
 
 function addFilters(eleventyConfig) {
+  formatDate(eleventyConfig);
   machineDate(eleventyConfig);
   readableDate(eleventyConfig);
 
+  hbsAbsoluteUrl(eleventyConfig);
   hbsConcat(eleventyConfig);
+  hbsFirstObject(eleventyConfig);
   hbsGet(eleventyConfig);
+  hbsHtmlAbsoluteUrls(eleventyConfig);
   hbsInlineFile(eleventyConfig, __dirname);
   hbsReverse(eleventyConfig);
   hbsTruthHelpers(eleventyConfig);
 }
 
+function isPost(collectionItem) {
+  return (
+    collectionItem.inputPath &&
+    collectionItem.inputPath.match(/^\.\/posts\//) !== null
+  );
+}
+
 module.exports = eleventyConfig => {
+  eleventyConfig.addPlugin(syntaxHighlight);
+
   eleventyConfig.addLayoutAlias('post', 'layouts/post.hbs');
 
   addFilters(eleventyConfig);
@@ -42,8 +60,31 @@ module.exports = eleventyConfig => {
   // only content in the `posts/` directory
   eleventyConfig.addCollection('posts', collection => {
     return collection.getAllSorted().filter(item => {
-      return item.inputPath.match(/^\.\/posts\//) !== null;
+      return isPost(item);
     });
+  });
+
+  // non-featured posts first
+  eleventyConfig.addCollection('nonFeaturedPosts', collection => {
+    return collection
+      .getAllSorted()
+      .filter(item => isPost(item))
+      .filter(item => !item.data || !item.data.featured);
+  });
+
+  // only featured posts
+  eleventyConfig.addCollection('featuredPosts', collection => {
+    return collection.getAllSorted().filter(item => {
+      return isPost(item) && item.data && item.data.featured;
+    });
+  });
+
+  // featured posts first
+  eleventyConfig.addCollection('featuredPostsFirst', collection => {
+    return collection
+      .getAllSorted()
+      .filter(item => isPost(item))
+      .sort((a, b) => (!a.data.featured && b.data.featured ? 1 : 0));
   });
 
   // Don't process folders with static assets e.g. images

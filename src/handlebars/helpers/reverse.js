@@ -1,5 +1,9 @@
 module.exports = eleventyConfig => {
   eleventyConfig.addHandlebarsHelper('reverse', collection => {
-    return collection.reverse();
+    if (!Array.isArray(collection)) {
+      return collection;
+    }
+
+    return [...collection].reverse();
   });
 };
