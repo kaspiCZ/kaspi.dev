@@ -17,7 +17,14 @@
       {{/if}}
       <p>
         <time datetime="{{ machineDate post.date }}">
-          <small>{{ readableDate post.date }} by {{ ../metadata.author.name }}</small>
+          <small>
+            {{ readableDate post.date }} by
+            {{#if post.data.author }}
+              {{ post.data.author }}
+            {{ else }}
+              {{ ../metadata.author.name }}
+            {{/if}}
+          </small>
         </time>
       </p>
       {{#if post.data.tags}}

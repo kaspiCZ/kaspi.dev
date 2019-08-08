@@ -6,10 +6,10 @@
 <body>
 
 <header>
-  <em>
-    <a href="{{ url '/' }}">{{ metadata.title }}</a>
-  </em>
-  {{> components/nav }}
+  <a
+    href="{{ url '/' }}"
+    class="logotype"
+  >kaspi<span>.io</span></a>
 </header>
 
 <main>
@@ -17,6 +17,8 @@
 </main>
 
 {{> components/footer }}
+
+{{> components/body-end }}
 
 </body>
 

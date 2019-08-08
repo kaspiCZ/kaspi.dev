@@ -1,0 +1,20 @@
+<article class="featured-article card">
+  <h3>
+    <a href="{{ url post.url }}">{{ post.data.title }}</a>
+  </h3>
+  <p>
+    <time datetime="{{ machineDate post.date }}">{{ readableDate post.date }}</time>
+  </p>
+
+  {{{ post.data.summary }}}
+
+  {{#if post.data.tags}}
+    <p>
+      {{#each post.data.tags as |tag|}}
+        {{#if (not-eq tag "post")}}
+          <a href="{{ url (concat "/tags/" tag "/")}}" rel="tag">{{ tag }}</a>
+        {{/if}}
+      {{/each}}
+    </p>
+  {{/if}}
+</article>

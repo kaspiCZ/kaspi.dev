@@ -1,32 +1,13 @@
 ---
-title: About us
-date: 2017-01-01T00:00:00.000Z
-permalink: /about/index.html
-navtitle: About
+title: Me
+date: 2019-05-19T00:00:00.000Z
+permalink: /me/index.html
+navtitle: Me
 tags:
   - nav
 ---
-Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
+Borrowing the words of Iliza Shlesinger, I'm an elder millennial. Also a web developer since around 1998. I've been here for most of the crazy shit we came up with and it's no different nowadays. We still periodically reinvent wheels and strut around like peacocks.
 
-Add a few line breaks in here to test:-
-Capitalize  
-on  
-low  
-hanging  
-fruit  
+I'm not a webdev superstar like a lot of the folk who are now stacking JAM on Netlify, but I can pull my weight just fine.
 
-## Our services
-
-Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
-
-### Blue-sky thinking
-
-Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
-
-#### Management frameworks
-
-Podcasting operational change management inside of workflows to establish a framework. Taking seamless key performance indicators offline to maximise the long tail. Keeping your eye on the ball while performing a deep dive on the start-up mentality to derive convergence on cross-platform integration. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
-
-##### Regulatory convergence
-
-Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits. Dramatically visualize customer directed convergence without revolutionary ROI. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
+It's been ages. Since basically, never? Yes, I never really created a site I would run experiments on and dump my wisdom and folly on. Time to change that and immortalize my brainfarts.

@@ -1,0 +1,25 @@
+---
+permalink: feed.xml
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ metadata.title }}</title>
+  <subtitle>{{ feed.subtitle }}</subtitle>
+  <link href="{{ absolute-url "feed.xml" metadata.url }}" rel="self"/>
+  <link href="{{ metadata.url }}"/>
+  <updated>{{ format-date (get "date" (first-object collections.posts)) "yyyy-LL-dd'T'HH:mm:ssZZ" }}</updated>
+  <id>{{ url metadata.url }}/</id>
+  <author>
+    <name>{{ metadata.author.name }}</name>
+    <email>{{ metadata.author.email }}</email>
+  </author>
+  {{#each (reverse collections.posts) as |post|}}
+  <entry>
+    <title>{{ post.data.title }}</title>
+    <link href="{{ absolute-url (url post.url) ../metadata.url }}"/>
+    <updated>{{ format-date post.date "yyyy-LL-dd'T'HH:mm:ssZZ" }}</updated>
+    <id>{{ absolute-url (url post.url) ../metadata.url }}</id>
+    <content type="html">{{ html-to-absolute-urls post.templateContent (absolute-url (url post.url) ../metadata.url) }}</content>
+  </entry>
+  {{/each}}
+</feed>
