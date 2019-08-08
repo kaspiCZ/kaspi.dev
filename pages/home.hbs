@@ -1,0 +1,30 @@
+---
+layout: layouts/home.hbs
+title: Home
+date: 2016-01-01T00:00:00.000Z
+permalink: /
+navtitle: Home
+tags:
+  - nav
+---
+<section>
+  <header>
+    <h2>Featured articles</h2>
+  </header>
+
+  <div class="featured-articles">
+    {{#each (reverse collections.featuredPosts) as |post|}}
+      {{> components/featured-article post=post }}
+    {{/each}}
+  </div>
+</section>
+
+<section>
+  <header>
+    <h2>Archive</h2>
+  </header>
+
+  <div class="archived-articles">
+    {{> components/postslist postlist=(reverse collections.nonFeaturedPosts) }}
+  </div>
+</section>

@@ -1,95 +1,130 @@
-const { DateTime } = require("luxon");
-const CleanCSS = require("clean-css");
-const UglifyJS = require("uglify-es");
-const htmlmin = require("html-minifier");
+const htmlmin = require('html-minifier');
+const markdownIt = require('markdown-it');
+const markdownItAnchor = require('markdown-it-anchor');
+const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
-module.exports = function(eleventyConfig) {
-  eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
+const hbsAbsoluteUrl = require('./src/handlebars/helpers/absolute-url');
+const hbsConcat = require('./src/handlebars/helpers/concat');
+const hbsFirstObject = require('./src/handlebars/helpers/first-object');
+const hbsGet = require('./src/handlebars/helpers/get');
+const hbsHtmlAbsoluteUrls = require('./src/handlebars/helpers/html-to-absolute-urls');
+const hbsInlineFile = require('./src/handlebars/helpers/inline-file');
+const hbsReverse = require('./src/handlebars/helpers/reverse');
+const hbsTruthHelpers = require('./src/handlebars/helpers/truth-helpers');
 
-  // Date formatting (human readable)
-  eleventyConfig.addFilter("readableDate", dateObj => {
-    return DateTime.fromJSDate(dateObj).toFormat("dd LLL yyyy");
-  });
+const formatDate = require('./src/filters/format-date');
+const machineDate = require('./src/filters/machine-date');
+const readableDate = require('./src/filters/readable-date');
 
-  // Date formatting (machine readable)
-  eleventyConfig.addFilter("machineDate", dateObj => {
-    return DateTime.fromJSDate(dateObj).toFormat("yyyy-MM-dd");
-  });
+function addFilters(eleventyConfig) {
+  formatDate(eleventyConfig);
+  machineDate(eleventyConfig);
+  readableDate(eleventyConfig);
 
-  // Minify CSS
-  eleventyConfig.addFilter("cssmin", function(code) {
-    return new CleanCSS({}).minify(code).styles;
-  });
+  hbsAbsoluteUrl(eleventyConfig);
+  hbsConcat(eleventyConfig);
+  hbsFirstObject(eleventyConfig);
+  hbsGet(eleventyConfig);
+  hbsHtmlAbsoluteUrls(eleventyConfig);
+  hbsInlineFile(eleventyConfig, __dirname);
+  hbsReverse(eleventyConfig);
+  hbsTruthHelpers(eleventyConfig);
+}
 
-  // Minify JS
-  eleventyConfig.addFilter("jsmin", function(code) {
-    let minified = UglifyJS.minify(code);
-    if (minified.error) {
-      console.log("UglifyJS error: ", minified.error);
-      return code;
-    }
-    return minified.code;
-  });
+function isPost(collectionItem) {
+  return (
+    collectionItem.inputPath &&
+    collectionItem.inputPath.match(/^\.\/posts\//) !== null
+  );
+}
+
+module.exports = eleventyConfig => {
+  eleventyConfig.addPlugin(syntaxHighlight);
+
+  eleventyConfig.addLayoutAlias('post', 'layouts/post.hbs');
+
+  addFilters(eleventyConfig);
 
   // Minify HTML output
-  eleventyConfig.addTransform("htmlmin", function(content, outputPath) {
-    if (outputPath.indexOf(".html") > -1) {
-      let minified = htmlmin.minify(content, {
+  eleventyConfig.addTransform('htmlmin', (content, outputPath) => {
+    if (outputPath.indexOf('.html') > -1) {
+      return htmlmin.minify(content, {
         useShortDoctype: true,
         removeComments: true,
-        collapseWhitespace: true
+        collapseWhitespace: true,
       });
-      return minified;
     }
     return content;
   });
 
   // only content in the `posts/` directory
-  eleventyConfig.addCollection("posts", function(collection) {
-    return collection.getAllSorted().filter(function(item) {
-      return item.inputPath.match(/^\.\/posts\//) !== null;
+  eleventyConfig.addCollection('posts', collection => {
+    return collection.getAllSorted().filter(item => {
+      return isPost(item);
     });
   });
 
+  // non-featured posts first
+  eleventyConfig.addCollection('nonFeaturedPosts', collection => {
+    return collection
+      .getAllSorted()
+      .filter(item => isPost(item))
+      .filter(item => !item.data || !item.data.featured);
+  });
+
+  // only featured posts
+  eleventyConfig.addCollection('featuredPosts', collection => {
+    return collection.getAllSorted().filter(item => {
+      return isPost(item) && item.data && item.data.featured;
+    });
+  });
+
+  // featured posts first
+  eleventyConfig.addCollection('featuredPostsFirst', collection => {
+    return collection
+      .getAllSorted()
+      .filter(item => isPost(item))
+      .sort((a, b) => (!a.data.featured && b.data.featured ? 1 : 0));
+  });
+
   // Don't process folders with static assets e.g. images
-  eleventyConfig.addPassthroughCopy("static/img");
-  eleventyConfig.addPassthroughCopy("admin");
-  eleventyConfig.addPassthroughCopy("_includes/assets/");
+  eleventyConfig.addPassthroughCopy('static/img');
+  eleventyConfig.addPassthroughCopy('admin');
+  eleventyConfig.addPassthroughCopy('_includes/assets/');
 
   /* Markdown Plugins */
-  let markdownIt = require("markdown-it");
-  let markdownItAnchor = require("markdown-it-anchor");
-  let options = {
+  const options = {
     html: true,
     breaks: true,
-    linkify: true
+    linkify: true,
   };
-  let opts = {
-    permalink: false
+  const opts = {
+    permalink: false,
   };
 
-  eleventyConfig.setLibrary("md", markdownIt(options)
-    .use(markdownItAnchor, opts)
+  eleventyConfig.setLibrary(
+    'md',
+    markdownIt(options).use(markdownItAnchor, opts),
   );
 
   return {
-    templateFormats: ["md", "njk", "html", "liquid"],
+    templateFormats: ['hbs', 'md', 'njk', 'html', 'liquid'],
 
     // If your site lives in a different subdirectory, change this.
     // Leading or trailing slashes are all normalized away, so don’t worry about it.
     // If you don’t have a subdirectory, use "" or "/" (they do the same thing)
     // This is only used for URLs (it does not affect your file structure)
-    pathPrefix: "/",
+    pathPrefix: '/',
 
-    markdownTemplateEngine: "liquid",
-    htmlTemplateEngine: "njk",
-    dataTemplateEngine: "njk",
+    markdownTemplateEngine: 'liquid',
+    htmlTemplateEngine: 'hbs',
+    dataTemplateEngine: 'hbs',
     passthroughFileCopy: true,
     dir: {
-      input: ".",
-      includes: "_includes",
-      data: "_data",
-      output: "_site"
-    }
+      input: '.',
+      includes: '_includes',
+      data: '_data',
+      output: '_site',
+    },
   };
 };
