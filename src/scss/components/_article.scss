@@ -7,6 +7,17 @@
     margin-bottom: var(--spacing-spacious);
   }
 
+  blockquote {
+    margin: {
+      left: 0;
+      right: var(--spacing-spacious);
+    }
+    padding-left: var(--spacing-spacious);
+    border: {
+      left: solid 0.3rem var(--color-highlight);
+    }
+  }
+
   p {
     line-height: var(--line-height-comfortable);
   }
