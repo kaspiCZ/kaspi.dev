@@ -107,7 +107,7 @@ module.exports = component;
 
 Note: `cs-test` is a special locale version based off cs-cz which we use in integration/acceptance tests where we want to check that the correct texts are displayed.
 
-Edit: we are now not generating empty files, because that caused a lot of problems with `ember-intl` at build time. These are explained in detail in [Ember Intl wrangling](/ember-intl-wrangling), but the final blueprint is missing the `empty` constant.
+Edit: we are now not generating empty files, because that caused a lot of problems with `ember-intl` at build time. These are explained in detail in [Ember Intl wrangling](/posts/wrangling-"missing"-errors-in-ember-intl/), but the final blueprint is missing the `empty` constant.
 
 Using the `afterInstall` hook from the CLI API, we were able run some other generator commands. Having looked at `component-translation`, running it suggests specifying a locale, but nothing beyond that. It is possible to pass arguments and options to the command though. By doing that, our custom version of translation blueprint can utilize them:
 
