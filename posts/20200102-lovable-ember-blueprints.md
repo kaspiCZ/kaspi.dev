@@ -1,11 +1,13 @@
 ---
-title: Lovable ember blueprints for code generation
+title: Lovable ember blueprints for code generation (edited)
 summary: Ember code generators are an amazing way to save time and ensure everyone is on the same page. They're flexible too.
 date: 2020-01-02
 featured: true
 tags:
   - emberjs
   - nodejs
+  - localization
+  - ember-intl
 ---
 **Big thank you goes to [Jan Bobisud](https://github.com/bobisjan)! Who got me on the right track with this.taskFor('generate-from-blueprint').run() and [Pavol Daňo](https://twitter.com/PuwelOne) for proofreading and suggestions on this post.**
 
@@ -105,6 +107,8 @@ module.exports = component;
 
 Note: `cs-test` is a special locale version based off cs-cz which we use in integration/acceptance tests where we want to check that the correct texts are displayed.
 
+Edit: we are now not generating empty files, because that caused a lot of problems with `ember-intl` at build time. These are explained in detail in [Ember Intl wrangling](/ember-intl-wrangling), but the final blueprint is missing the `empty` constant.
+
 Using the `afterInstall` hook from the CLI API, we were able run some other generator commands. Having looked at `component-translation`, running it suggests specifying a locale, but nothing beyond that. It is possible to pass arguments and options to the command though. By doing that, our custom version of translation blueprint can utilize them:
 
 ```js
@@ -148,6 +152,8 @@ translation.locals = function(options) {
 
 module.exports = translation;
 ```
+
+Edit: as mentioned above, we have since removed the check for `!options.taskOptions.createEmpty`, because we are now not generating empty files at all.
 
 `locals` get resolved first before they are [merged and passed](https://github.com/ember-cli/ember-cli/blob/master/lib/models/blueprint.js) to `fileMapTokens`, which can utilize them in a structure like this one:
 
