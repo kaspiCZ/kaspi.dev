@@ -2,7 +2,6 @@
 title: I overrode 3rd party CSS and I liked it
 summary: Background SVG feels like cheating, but the results have certain elegance to them.
 date: 2019-06-11
-featured: true
 tags:
   - emberjs
   - ember-power-select
