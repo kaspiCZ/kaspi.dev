@@ -7,7 +7,7 @@ permalink: feed.xml
   <subtitle>{{ feed.subtitle }}</subtitle>
   <link href="{{ absolute-url "feed.xml" metadata.url }}" rel="self"/>
   <link href="{{ metadata.url }}"/>
-  <updated>{{ format-date (get "date" (first-object collections.posts)) "yyyy-LL-dd'T'HH:mm:ssZZ" }}</updated>
+  <updated>{{ format-date (get "date" (first-object (reverse collections.posts))) "yyyy-LL-dd'T'HH:mm:ssZZ" }}</updated>
   <id>{{ url metadata.url }}/</id>
   <author>
     <name>{{ metadata.author.name }}</name>

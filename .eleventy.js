@@ -92,6 +92,10 @@ module.exports = eleventyConfig => {
   eleventyConfig.addPassthroughCopy('admin');
   eleventyConfig.addPassthroughCopy('_includes/assets/');
 
+  // Watch source SASS and JS files
+  eleventyConfig.addWatchTarget('./src/js/');
+  eleventyConfig.addWatchTarget('./src/scss/');
+
   /* Markdown Plugins */
   const options = {
     html: true,
