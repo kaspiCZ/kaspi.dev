@@ -1,6 +1,4 @@
 module.exports = {
-  linters: {
-    '**/*.js': ['npx eslint'],
-    '**/*.scss': ['npx stylelint'],
-  },
+  '**/*.js': 'npx eslint',
+  '**/*.scss': 'npx stylelint',
 };
