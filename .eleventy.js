@@ -1,6 +1,7 @@
 const htmlmin = require('html-minifier');
 const markdownIt = require('markdown-it');
 const markdownItAnchor = require('markdown-it-anchor');
+const safeExternalLinks = require('@hirusi/eleventy-plugin-safe-external-links');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
 const hbsAbsoluteUrl = require('./src/handlebars/helpers/absolute-url');
@@ -38,8 +39,12 @@ function isPost(collectionItem) {
   );
 }
 
-module.exports = eleventyConfig => {
+module.exports = (eleventyConfig) => {
   eleventyConfig.addPlugin(syntaxHighlight);
+
+  eleventyConfig.addPlugin(safeExternalLinks, {
+    noreferrer: true,
+  });
 
   eleventyConfig.addLayoutAlias('post', 'layouts/post.hbs');
 
@@ -58,32 +63,32 @@ module.exports = eleventyConfig => {
   });
 
   // only content in the `posts/` directory
-  eleventyConfig.addCollection('posts', collection => {
-    return collection.getAllSorted().filter(item => {
+  eleventyConfig.addCollection('posts', (collection) => {
+    return collection.getAllSorted().filter((item) => {
       return isPost(item);
     });
   });
 
   // non-featured posts first
-  eleventyConfig.addCollection('nonFeaturedPosts', collection => {
+  eleventyConfig.addCollection('nonFeaturedPosts', (collection) => {
     return collection
       .getAllSorted()
-      .filter(item => isPost(item))
-      .filter(item => !item.data || !item.data.featured);
+      .filter((item) => isPost(item))
+      .filter((item) => !item.data || !item.data.featured);
   });
 
   // only featured posts
-  eleventyConfig.addCollection('featuredPosts', collection => {
-    return collection.getAllSorted().filter(item => {
+  eleventyConfig.addCollection('featuredPosts', (collection) => {
+    return collection.getAllSorted().filter((item) => {
       return isPost(item) && item.data && item.data.featured;
     });
   });
 
   // featured posts first
-  eleventyConfig.addCollection('featuredPostsFirst', collection => {
+  eleventyConfig.addCollection('featuredPostsFirst', (collection) => {
     return collection
       .getAllSorted()
-      .filter(item => isPost(item))
+      .filter((item) => isPost(item))
       .sort((a, b) => (!a.data.featured && b.data.featured ? 1 : 0));
   });
 
@@ -97,18 +102,15 @@ module.exports = eleventyConfig => {
   eleventyConfig.addWatchTarget('./src/scss/');
 
   /* Markdown Plugins */
-  const options = {
-    html: true,
-    breaks: true,
-    linkify: true,
-  };
-  const opts = {
-    permalink: false,
-  };
-
   eleventyConfig.setLibrary(
     'md',
-    markdownIt(options).use(markdownItAnchor, opts),
+    markdownIt({
+      html: true,
+      breaks: true,
+      linkify: true,
+    }).use(markdownItAnchor, {
+      permalink: false,
+    }),
   );
 
   return {

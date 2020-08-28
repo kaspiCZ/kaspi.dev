@@ -47,7 +47,7 @@ This file contains your site title and author details.
 ### 5. Run (run gulp with watch and 11ty server)
 
 ```
-npm run serve
+yarn serve
 ```
 
 ## Bug reports, feature requests, etc

@@ -16,7 +16,7 @@ renderData:
 
 <h1>Tagged “{{ tag }}”</h1>
 
-{{> components/postslist postlist=(get tag collections)}}
+{{> components/postslist postlist=(reverse (get tag collections))}}
 
 <nav>
   <a href="{{ url '/blog/' }}">← Blog index</a>
