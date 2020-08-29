@@ -8,7 +8,7 @@
 
   span {
     display: inline-block;
-    transform: rotate(45deg) translate(25%, 25%);
+    transform: rotate(45deg) translate(25%, 50%);
   }
 
   @include media('screen', '>=tablet') {
