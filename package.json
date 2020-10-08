@@ -16,18 +16,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kaspiCZ/kaspi.io"
+    "url": "https://github.com/kaspiCZ/kaspi.dev"
   },
   "author": {
     "name": "Ondřej Kašpar",
-    "email": "kaspi@kaspi.io",
-    "url": "https://kaspi.io"
+    "email": "kaspi@kaspi.dev",
+    "url": "https://kaspi.dev"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaspiCZ/kaspi.io/issues"
+    "url": "https://github.com/kaspiCZ/kaspi.dev/issues"
   },
-  "homepage": "https://github.com/kaspiCZ/kaspi.io",
+  "homepage": "https://github.com/kaspiCZ/kaspi.dev",
   "devDependencies": {
     "@11ty/eleventy": "^0.11.0",
     "@babel/cli": "^7.4.4",

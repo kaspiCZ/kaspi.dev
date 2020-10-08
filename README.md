@@ -22,7 +22,7 @@ Feel free to use this as you see fit. Get a fast experiment running, make your s
 ### 1. Clone this repository:
 
 ```
-git clone https://github.com/kaspiCZ/kaspi.io.git my-blog-name
+git clone https://github.com/kaspiCZ/kaspi.dev.git my-blog-name
 ```
 
 
