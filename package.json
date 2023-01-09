@@ -67,7 +67,7 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
     "@hirusi/eleventy-plugin-safe-external-links": "^0.14.3",
     "html-minifier": "^4.0.0",
-    "luxon": "^1.12.1",
+    "luxon": "^2.5.2",
     "markdown-it": "^11.0.0",
     "markdown-it-anchor": "^5.0.2"
   },
