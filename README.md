@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b216e973-8cdc-4962-abcc-3cfd3b5b5075/deploy-status)](https://app.netlify.com/sites/condescending-northcutt-368998/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/65dc1b09-15da-47bc-8381-d6395b7caf26/deploy-status)](https://app.netlify.com/sites/wonderful-volhard-1a08af/deploys)
 
 # Personal website with 11ty with bells and whistles
 
